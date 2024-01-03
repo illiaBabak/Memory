@@ -1,9 +1,21 @@
+import { useContext } from 'react';
+import { GlobalContext } from 'src/root';
+
 export const MemoryFieldSelect = (): JSX.Element => {
+  const { setCountCards, countCards } = useContext(GlobalContext);
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCountCards(Number(e.target.value));
+  };
+
   return (
-    <select className='memory-select'>
-      <option value='16'>4x4</option>
-      <option value='64'>8x8</option>
-      <option value='256'>16x16</option>
-    </select>
+    <>
+      <h2>Select number of cards</h2>
+      <select className='memory-select' onChange={handleSelect} value={countCards}>
+        <option value='2'>2x2</option>
+        <option value='4'>4x4</option>
+        <option value='6'>6x6</option>
+      </select>
+    </>
   );
 };

@@ -1,7 +1,14 @@
 import { MemoryFieldSelect } from '../MemoryFieldSelect';
-import { StartButton } from '../StartButton';
 
-export const StartPage = (): JSX.Element => {
+type Props = {
+  setIsStartGame: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const StartPage = ({ setIsStartGame }: Props): JSX.Element => {
+  const handleClick = () => {
+    setIsStartGame((prev) => !prev);
+  };
+
   return (
     <div className='start-page'>
       <h1>Memory game</h1>
@@ -10,7 +17,9 @@ export const StartPage = (): JSX.Element => {
         Pokemon.
       </p>
       <MemoryFieldSelect />
-      <StartButton />
+      <div className='start-button' onClick={handleClick}>
+        Start game
+      </div>
     </div>
   );
 };
