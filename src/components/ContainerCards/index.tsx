@@ -9,12 +9,16 @@ import { shuffleArr } from 'src/utils/shuffleArr';
 const CARD_SIZE = 152;
 
 export const ContainerCards = (): JSX.Element => {
-  const { countCards } = useContext(GlobalContext);
+  const { countCards, setIsStartGame } = useContext(GlobalContext);
   const [data, setData] = useState<PokemonsWithIndex[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCards, setSelectedCards] = useState<PokemonsWithIndex[]>([]);
   const [guessedCards, setGuessedCards] = useState<PokemonsWithIndex[]>([]);
   const [showAlert, setShowAlert] = useState(false);
+
+  const handleClick = () => {
+    setIsStartGame((prev) => !prev);
+  };
 
   useEffect(() => {
     if (data.length && guessedCards.length === data.length * 2) setShowAlert(true);
@@ -95,6 +99,10 @@ export const ContainerCards = (): JSX.Element => {
       )}
 
       {showAlert && <div className='custom-alert'>You won!</div>}
+
+      <div className='back' onClick={handleClick}>
+        Back
+      </div>
     </>
   );
 };

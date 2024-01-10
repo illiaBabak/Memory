@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import { MemoryFieldSelect } from '../MemoryFieldSelect';
+import { GlobalContext } from 'src/root';
 
-type Props = {
-  setIsStartGame: React.Dispatch<React.SetStateAction<boolean>>;
-};
+export const StartPage = (): JSX.Element => {
+  const { setIsStartGame } = useContext(GlobalContext);
 
-export const StartPage = ({ setIsStartGame }: Props): JSX.Element => {
   const handleClick = () => {
     setIsStartGame((prev) => !prev);
   };

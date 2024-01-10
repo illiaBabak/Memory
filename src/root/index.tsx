@@ -5,6 +5,7 @@ import { ContainerCards } from '../components/ContainerCards';
 type GlobalContextType = {
   setCountCards: React.Dispatch<React.SetStateAction<number>>;
   countCards: number;
+  setIsStartGame: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const GlobalContext = createContext<GlobalContextType>({
@@ -12,6 +13,9 @@ export const GlobalContext = createContext<GlobalContextType>({
     throw new Error('Global context is not initialized');
   },
   countCards: 2,
+  setIsStartGame: () => {
+    throw new Error('Global context is not initialized');
+  },
 });
 
 export const App = (): JSX.Element => {
@@ -19,10 +23,8 @@ export const App = (): JSX.Element => {
   const [countCards, setCountCards] = useState(2);
 
   return (
-    <GlobalContext.Provider value={{ setCountCards, countCards }}>
-      <div className='container'>
-        {!isStartGame ? <StartPage setIsStartGame={setIsStartGame} /> : <ContainerCards />}
-      </div>
+    <GlobalContext.Provider value={{ setCountCards, countCards, setIsStartGame }}>
+      <div className='container'>{!isStartGame ? <StartPage /> : <ContainerCards />}</div>
     </GlobalContext.Provider>
   );
 };
