@@ -49,8 +49,6 @@ export const ContainerCards = (): JSX.Element => {
         const randomPokemons = shuffleArr(pokemonsWithIndexes);
 
         setData(randomPokemons);
-      } catch {
-        // eslint-disable-next-line no-empty
       } finally {
         setIsLoading(false);
       }
@@ -63,32 +61,38 @@ export const ContainerCards = (): JSX.Element => {
 
   return (
     <>
-      <div className='container-cards' style={{ width: `${CARD_SIZE * countCards}px` }}>
-        {data.map((pokemon) => (
-          <Card
-            name={pokemon.name}
-            imgId={pokemon.originalIndex + 1}
-            key={`list1-${pokemon.originalIndex}-${pokemon.name}`}
-            selectedCards={selectedCards}
-            setSelectedCards={setSelectedCards}
-            data={data}
-            setGuessedCards={setGuessedCards}
-            guessedCards={guessedCards}
-          />
-        ))}
-        {data.map((pokemon) => (
-          <Card
-            name={pokemon.name}
-            imgId={pokemon.originalIndex + 1}
-            key={`list2-${pokemon.originalIndex}-${pokemon.name}`}
-            selectedCards={selectedCards}
-            setSelectedCards={setSelectedCards}
-            data={data}
-            setGuessedCards={setGuessedCards}
-            guessedCards={guessedCards}
-          />
-        ))}
-      </div>
+      {data.length ? (
+        <>
+          <div className='container-cards' style={{ width: `${CARD_SIZE * countCards}px` }}>
+            {data.map((pokemon) => (
+              <Card
+                name={pokemon.name}
+                imgId={pokemon.originalIndex + 1}
+                key={`list1-${pokemon.originalIndex}-${pokemon.name}`}
+                selectedCards={selectedCards}
+                setSelectedCards={setSelectedCards}
+                data={data}
+                setGuessedCards={setGuessedCards}
+                guessedCards={guessedCards}
+              />
+            ))}
+            {data.map((pokemon) => (
+              <Card
+                name={pokemon.name}
+                imgId={pokemon.originalIndex + 1}
+                key={`list2-${pokemon.originalIndex}-${pokemon.name}`}
+                selectedCards={selectedCards}
+                setSelectedCards={setSelectedCards}
+                data={data}
+                setGuessedCards={setGuessedCards}
+                guessedCards={guessedCards}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className='error'>Oops, something went wrong</div>
+      )}
 
       {showAlert && <div className='custom-alert'>You won!</div>}
     </>
