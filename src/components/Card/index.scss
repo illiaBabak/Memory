@@ -11,6 +11,8 @@
   padding: 4px;
   margin: 16px;
   cursor: pointer;
+  transform: rotateY(0deg);
+  transition: 0.3s;
 
   p {
     margin: 0;
@@ -20,5 +22,22 @@
     width: 90px;
     height: 90px;
     object-fit: cover;
+  }
+}
+
+.back-card {
+  background-image: url('src/images/pokeball.png');
+  background-position: center;
+  background-size: cover;
+  transform: rotateY(180deg);
+  transition: 0.3s;
+
+  p {
+    font-size: 0;
+  }
+
+  img {
+    width: 0;
+    height: 0;
   }
 }
