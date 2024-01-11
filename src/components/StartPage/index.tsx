@@ -1,14 +1,7 @@
-import { useContext } from 'react';
 import { MemoryFieldSelect } from '../MemoryFieldSelect';
-import { GlobalContext } from 'src/root';
+import { NavLink } from 'react-router-dom';
 
 export const StartPage = (): JSX.Element => {
-  const { setIsStartGame } = useContext(GlobalContext);
-
-  const handleClick = () => {
-    setIsStartGame((prev) => !prev);
-  };
-
   return (
     <div className='start-page'>
       <h1>Memory game</h1>
@@ -17,9 +10,9 @@ export const StartPage = (): JSX.Element => {
         Pokemon.
       </p>
       <MemoryFieldSelect />
-      <div className='start-button' onClick={handleClick}>
-        Start game
-      </div>
+      <NavLink to={'/cards'} className='nav-link'>
+        <div className='start-button'>Start game</div>
+      </NavLink>
     </div>
   );
 };

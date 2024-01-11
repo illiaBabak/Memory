@@ -49,9 +49,14 @@
   bottom: 2%;
   right: 1%;
   cursor: pointer;
+  text-decoration: none;
 
   &:hover {
     transition: 0.25s;
     transform: scale(1.05);
   }
+}
+
+.nav-link {
+  text-decoration: none;
 }
