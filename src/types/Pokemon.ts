@@ -6,3 +6,8 @@ export type Pokemon = {
 export type PokemonsWithIndex = Pokemon & {
   originalIndex: number;
 };
+
+export type CardData = {
+  name: string;
+  index: number;
+}

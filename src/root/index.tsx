@@ -1,26 +1,33 @@
 import { createContext, useState } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routing';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { ContainerCards } from 'src/components/ContainerCards';
+import { StartPage } from 'src/components/StartPage';
 
 type GlobalContextType = {
-  setCountCards: React.Dispatch<React.SetStateAction<number>>;
-  countCards: number;
+  setBoardSize: React.Dispatch<React.SetStateAction<number>>;
+  boardSize: number;
 };
 
 export const GlobalContext = createContext<GlobalContextType>({
-  setCountCards: () => {
+  setBoardSize: () => {
     throw new Error('Global context is not initialized');
   },
-  countCards: 2,
+  boardSize: 2,
 });
 
 export const App = (): JSX.Element => {
-  const [countCards, setCountCards] = useState(2);
+  const [boardSize, setBoardSize] = useState(2);
 
   return (
-    <GlobalContext.Provider value={{ setCountCards, countCards }}>
+    <GlobalContext.Provider value={{ setBoardSize, boardSize }}>
       <div className='container'>
-        <RouterProvider router={router}></RouterProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/*' element={<Navigate to='/start-page' />} />
+            <Route path='/start-page' element={<StartPage />} />
+            <Route path='/cards' element={<ContainerCards />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </GlobalContext.Provider>
   );

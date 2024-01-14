@@ -11,7 +11,7 @@ export const fetchPokemons = async (countCards: number): Promise<Pokemon[]> => {
     if (isPokemonsData(pokemonsData)) {
       const { results } = pokemonsData;
       return results;
-    } else throw new Error('Failed to fetch');
+    } else throw new Error('Unexpected result');
   } catch {
     throw new Error('Failed to fetch');
   }

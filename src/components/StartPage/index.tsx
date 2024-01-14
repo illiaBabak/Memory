@@ -1,7 +1,9 @@
 import { MemoryFieldSelect } from '../MemoryFieldSelect';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const StartPage = (): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <div className='start-page'>
       <h1>Memory game</h1>
@@ -10,9 +12,10 @@ export const StartPage = (): JSX.Element => {
         Pokemon.
       </p>
       <MemoryFieldSelect />
-      <NavLink to={'/cards'} className='nav-link'>
-        <div className='start-button'>Start game</div>
-      </NavLink>
+
+      <div className='start-button' onClick={() => navigate('/cards')}>
+        Start game
+      </div>
     </div>
   );
 };

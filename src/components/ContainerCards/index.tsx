@@ -1,44 +1,48 @@
 import { useContext, useEffect, useState } from 'react';
 import { Card } from '../Card';
-import { PokemonsWithIndex } from 'src/types/Pokemon';
+import { CardData, PokemonsWithIndex } from 'src/types/Pokemon';
 import { fetchPokemons } from 'src/api/fetchPokemons';
 import { GlobalContext } from 'src/root';
 import { Loader } from '../Loader';
 import { shuffleArr } from 'src/utils/shuffleArr';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CARD_SIZE = 152;
 
 export const ContainerCards = (): JSX.Element => {
-  const { countCards } = useContext(GlobalContext);
+  const { boardSize } = useContext(GlobalContext);
   const [data, setData] = useState<PokemonsWithIndex[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedCards, setSelectedCards] = useState<PokemonsWithIndex[]>([]);
-  const [guessedCards, setGuessedCards] = useState<PokemonsWithIndex[]>([]);
-  const [showAlert, setShowAlert] = useState(false);
+  const [selectedCards, setSelectedCards] = useState<CardData[]>([]);
+  const [guessedCards, setGuessedCards] = useState<CardData[]>([]);
+  const [shouldShowAlert, setShouldShowAlert] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (data.length && guessedCards.length + selectedCards.length + 1 === data.length) setShouldShowAlert(true);
+  };
 
   useEffect(() => {
-    if (data.length && guessedCards.length === data.length * 2) setShowAlert(true);
+    if (selectedCards.length < 2) return;
 
-    if (selectedCards.length === 2) {
-      const timeout = setTimeout(() => {
-        const updatedData = data.map((pokemon) => ({
-          ...pokemon,
-          isRotated: true,
-        }));
-
-        setData(updatedData);
-        setSelectedCards([]);
-      }, 1000);
-
-      return () => clearTimeout(timeout);
+    if (selectedCards[0].name === selectedCards[1].name) {
+      setGuessedCards((prev) => [...prev, ...selectedCards]);
+      setSelectedCards([]);
+      return;
     }
-  }, [selectedCards, data, setData, setSelectedCards, guessedCards]);
+
+    const timeout = setTimeout(() => {
+      setSelectedCards([]);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [selectedCards]);
 
   useEffect(() => {
     const loadPokemons = async () => {
-      const pokemonListSize = Math.pow(countCards, 2) / 2;
+      const pokemonListSize = Math.pow(boardSize, 2) / 2;
       setIsLoading(true);
+
       try {
         const pokemons = await fetchPokemons(pokemonListSize);
 
@@ -47,16 +51,14 @@ export const ContainerCards = (): JSX.Element => {
           originalIndex: index,
         }));
 
-        const randomPokemons = shuffleArr(pokemonsWithIndexes);
-
-        setData(randomPokemons);
+        setData([...shuffleArr(pokemonsWithIndexes), ...shuffleArr(pokemonsWithIndexes)]);
       } finally {
         setIsLoading(false);
       }
     };
 
     loadPokemons();
-  }, [countCards]);
+  }, [boardSize]);
 
   if (isLoading) return <Loader />;
 
@@ -64,29 +66,18 @@ export const ContainerCards = (): JSX.Element => {
     <>
       {data.length ? (
         <>
-          <div className='container-cards' style={{ width: `${CARD_SIZE * countCards}px` }}>
-            {data.map((pokemon) => (
+          <div className='container-cards' style={{ width: `${CARD_SIZE * boardSize}px` }}>
+            {data.map((pokemon, index) => (
               <Card
                 name={pokemon.name}
                 imgId={pokemon.originalIndex + 1}
-                key={`list1-${pokemon.originalIndex}-${pokemon.name}`}
-                selectedCards={selectedCards}
+                index={index}
+                key={`card-${index}-${pokemon.name}`}
                 setSelectedCards={setSelectedCards}
-                data={data}
-                setGuessedCards={setGuessedCards}
-                guessedCards={guessedCards}
-              />
-            ))}
-            {data.map((pokemon) => (
-              <Card
-                name={pokemon.name}
-                imgId={pokemon.originalIndex + 1}
-                key={`list2-${pokemon.originalIndex}-${pokemon.name}`}
-                selectedCards={selectedCards}
-                setSelectedCards={setSelectedCards}
-                data={data}
-                setGuessedCards={setGuessedCards}
-                guessedCards={guessedCards}
+                isRotated={[...guessedCards, ...selectedCards].some(
+                  (card) => card.name === pokemon.name && card.index === index
+                )}
+                onClick={handleCardClick}
               />
             ))}
           </div>
@@ -95,11 +86,11 @@ export const ContainerCards = (): JSX.Element => {
         <div className='error'>Oops, something went wrong</div>
       )}
 
-      {showAlert && <div className='custom-alert'>You won!</div>}
+      {shouldShowAlert && <div className='custom-alert'>You won!</div>}
 
-      <NavLink to={'/'} className='nav-link'>
-        <div className='back'>Back</div>
-      </NavLink>
+      <div className='back' onClick={() => navigate('/')}>
+        Back
+      </div>
     </>
   );
 };
