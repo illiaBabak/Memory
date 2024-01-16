@@ -10,6 +10,32 @@
   min-height: 100%;
 }
 
-#root {
-  background-color: #9b59b6;
+@at-root {
+  #root:has(.light) {
+    background-color: #9b59b6;
+
+    .start-page {
+      .start-button {
+        border: 6px solid #8e44ad;
+      }
+    }
+
+    .card {
+      border: 6px solid #8e44ad;
+    }
+  }
+
+  #root:has(.black) {
+    background-color: #353535;
+
+    .start-page {
+      .start-button {
+        border: 6px solid #252525;
+      }
+    }
+
+    .card {
+      border: 6px solid #252525;
+    }
+  }
 }
