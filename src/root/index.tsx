@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ContainerCards } from 'src/components/ContainerCards';
+import { ErrorPage } from 'src/components/ErrorPage';
 import { StartPage } from 'src/components/StartPage';
 
 type GlobalContextType = {
@@ -33,6 +34,7 @@ export const App = (): JSX.Element => {
             <Route path='/*' element={<Navigate to='/start-page' />} />
             <Route path='/start-page' element={<StartPage />} />
             <Route path='/cards' element={<ContainerCards />} />
+            <Route path='/error' element={<ErrorPage />} />
           </Routes>
         </BrowserRouter>
       </div>

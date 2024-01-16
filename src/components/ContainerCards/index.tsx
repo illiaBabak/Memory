@@ -6,6 +6,7 @@ import { GlobalContext } from 'src/root';
 import { Loader } from '../Loader';
 import { shuffleArr } from 'src/utils/shuffleArr';
 import { useNavigate } from 'react-router-dom';
+import { BackButton } from '../BackButton';
 
 const CARD_SIZE = 152;
 
@@ -83,14 +84,12 @@ export const ContainerCards = (): JSX.Element => {
           </div>
         </>
       ) : (
-        <div className='error'>Oops, something went wrong</div>
+        navigate('/error')
       )}
 
       {shouldShowAlert && <div className='custom-alert'>You won!</div>}
 
-      <div className='back' onClick={() => navigate('/')}>
-        Back
-      </div>
+      <BackButton />
     </>
   );
 };

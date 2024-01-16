@@ -1,0 +1,26 @@
+.error-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 16px;
+  }
+
+  p {
+    font-size: 24px;
+    margin: 0 16px;
+  }
+}
