@@ -9,6 +9,8 @@ type GlobalContextType = {
   boardSize: number;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
   theme: boolean;
+  time: string;
+  setTime: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const GlobalContext = createContext<GlobalContextType>({
@@ -20,14 +22,19 @@ export const GlobalContext = createContext<GlobalContextType>({
     throw new Error('Global context is not initialized');
   },
   theme: false,
+  time: '01:30',
+  setTime: () => {
+    throw new Error('Global context is not initialized');
+  },
 });
 
 export const App = (): JSX.Element => {
   const [boardSize, setBoardSize] = useState(2);
   const [theme, setTheme] = useState(false);
+  const [time, setTime] = useState('01:30');
 
   return (
-    <GlobalContext.Provider value={{ setBoardSize, boardSize, setTheme, theme }}>
+    <GlobalContext.Provider value={{ setBoardSize, boardSize, setTheme, theme, time, setTime }}>
       <div className={`container ${theme ? 'black' : 'light'}`}>
         <BrowserRouter>
           <Routes>

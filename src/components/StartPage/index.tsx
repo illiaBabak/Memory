@@ -1,6 +1,7 @@
 import { MemoryFieldSelect } from '../MemoryFieldSelect';
 import { useNavigate } from 'react-router-dom';
 import { Switch } from '../Switch';
+import { TimeFieldSelect } from '../TimeFieldSelect';
 
 export const StartPage = (): JSX.Element => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const StartPage = (): JSX.Element => {
           Your task is to find all pairs of cards by turning them face down. Turn two cards over and try to find
           matching Pokemon.
         </p>
+        <TimeFieldSelect />
         <MemoryFieldSelect />
 
         <div className='start-button' onClick={() => navigate('/cards')}>
