@@ -1,26 +1,21 @@
-import { CardData } from 'src/types/Pokemon';
-
 type Props = {
   name: string;
   imgId: number;
   index: number;
-  setSelectedCards: React.Dispatch<React.SetStateAction<CardData[]>>;
   isRotated: boolean;
-  onClick: () => void;
+  onClick: (name: string, index: number) => void;
   isLoseGame: boolean;
+  isGameStarted: boolean;
 };
 
-export const Card = ({ name, imgId, index, setSelectedCards, isRotated, onClick, isLoseGame }: Props): JSX.Element => {
-  const handleClick = () => {
-    setSelectedCards((prev) => {
-      if (prev.length === 2) return prev;
-      return [...prev, { name, index }];
-    });
-    onClick();
-  };
+export const Card = ({ name, imgId, index, isRotated, onClick, isLoseGame, isGameStarted }: Props): JSX.Element => {
+  const isCardDisabled = isLoseGame || !isGameStarted;
 
   return (
-    <div className={`card ${isRotated ? '' : 'back-card'}`} onClick={isRotated || isLoseGame ? undefined : handleClick}>
+    <div
+      className={`card ${isRotated ? '' : 'back-card'} ${isCardDisabled ? 'disabled' : ''}`}
+      onClick={isRotated || isCardDisabled ? undefined : () => onClick(name, index)}
+    >
       <p>{name}</p>
       <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${imgId}.png`} />
     </div>

@@ -1,0 +1,15 @@
+.statistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: 48px;
+
+  p {
+    font-size: 24px;
+    margin: 0 24px;
+  }
+}

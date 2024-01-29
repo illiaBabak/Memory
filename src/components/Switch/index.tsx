@@ -2,16 +2,14 @@ import { useContext } from 'react';
 import { GlobalContext } from 'src/root';
 
 export const Switch = (): JSX.Element => {
-  const { setTheme, theme } = useContext(GlobalContext);
+  const { setIsLightTheme, isLightTheme } = useContext(GlobalContext);
 
-  const handleClick = () => {
-    setTheme((prev) => !prev);
-  };
+  const handleClick = () => setIsLightTheme((prev) => !prev);
 
   return (
     <div className='toggle-button'>
       <label htmlFor='toggle' id='theme-toggle-button'>
-        <input type='checkbox' id='toggle' onChange={handleClick} checked={theme} />
+        <input type='checkbox' id='toggle' onChange={handleClick} checked={isLightTheme} />
         <svg viewBox='0 0 69.667 44' xmlnsXlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
           <g transform='translate(3.5 3.5)' data-name='Component 15 – 1' id='Component_15_1'>
             <g filter='url(#container)' transform='matrix(1, 0, 0, 1, -3.5, -3.5)'>

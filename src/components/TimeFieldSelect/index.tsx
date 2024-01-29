@@ -2,10 +2,11 @@ import { useContext } from 'react';
 import { GlobalContext } from 'src/root';
 
 export const TimeFieldSelect = (): JSX.Element => {
-  const { time, setTime } = useContext(GlobalContext);
+  const { time, setTime, setTimer } = useContext(GlobalContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTime(e.target.value);
+    setTimer(e.target.value);
   };
 
   return (

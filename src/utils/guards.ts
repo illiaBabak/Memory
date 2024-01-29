@@ -1,9 +1,6 @@
 import { Pokemon } from 'src/types/Pokemon';
 
 type DataType = {
-  count: number;
-  next: string;
-  previous: null;
   results: Pokemon[];
 };
 
@@ -23,16 +20,5 @@ const isPokemonArr = (data: unknown): data is Pokemon[] => {
 };
 
 export const isPokemonsData = (data: unknown): data is DataType => {
-  return (
-    !!data &&
-    typeof data === 'object' &&
-    'count' in data &&
-    'next' in data &&
-    'previous' in data &&
-    'results' in data &&
-    typeof data.count === 'number' &&
-    typeof data.next === 'string' &&
-    data.previous === null &&
-    isPokemonArr(data.results)
-  );
+  return !!data && typeof data === 'object' && 'results' in data && isPokemonArr(data.results);
 };

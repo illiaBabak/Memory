@@ -1,10 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
-export const BackButton = (): JSX.Element => {
+type Props = {
+  retryGame?: () => void;
+};
+
+export const BackButton = ({ retryGame }: Props): JSX.Element => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    retryGame?.();
+    navigate('/');
+  };
+
   return (
-    <div className='back' onClick={() => navigate('/')}>
+    <div className='back' onClick={handleClick}>
       Back
     </div>
   );

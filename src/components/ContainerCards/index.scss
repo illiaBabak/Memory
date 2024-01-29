@@ -4,7 +4,7 @@
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10%;
+  top: 8.5%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
@@ -72,5 +72,20 @@
   &:hover {
     transition: 0.25s;
     transform: scale(1.05);
+  }
+}
+
+.confetti {
+  opacity: 0;
+  animation: opacity 3.5s ease-out 0s forwards;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
