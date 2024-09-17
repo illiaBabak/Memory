@@ -9,6 +9,8 @@ This game was written in React using TypeScript and Vite
 <img src="https://static-00.iconduck.com/assets.00/typescript-icon-icon-1024x1024-vh3pfez8.png" alt="TypeScript" width="75" height="75" style="object-fit: cover;">
 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968358.png" alt="SCSS" width="75" height="75" style="object-fit: cover;">
 
+22.12.2023-30.01.2024
+
 # Memory game
 
 This game is written to learn how to work with API in React
